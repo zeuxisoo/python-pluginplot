@@ -7,13 +7,13 @@ WIP
 
 Install from github
 
-	pip install git+https://github.com/zeuxisoo/python-pluginpress.git
+	pip install git+https://github.com/zeuxisoo/python-pluginplot.git
 
 ### Example
 
 Filter
 
-    from pluginpress import Plugin
+    from pluginplot import Plugin
 
     def strong(value):
         return "<strong>{0}</strong>".format(value)
@@ -26,11 +26,11 @@ Filter
 
 Action
 
-	from pluginpress import Plugin
+	from pluginplot import Plugin
 
     def puts(value):
         print(value)
-        
+
 	plugin = Plugin()
 	plugin.add_action('puts', puts)
 

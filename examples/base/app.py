@@ -5,12 +5,12 @@ from __future__ import print_function
 from os.path import abspath, dirname
 
 try:
-    from pluginpress import Plugin
+    from pluginplot import Plugin
 except ImportError:
     import sys
     sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
-    from pluginpress import Plugin
+    from pluginplot import Plugin
 
 def filter_case(plugin):
     plugin.add_filter('div', lambda value: "<div>{0}</div>".format(value))

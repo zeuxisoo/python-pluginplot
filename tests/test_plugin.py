@@ -7,7 +7,7 @@ import sys
 import unittest
 from contextlib import contextmanager
 from StringIO import StringIO
-from pluginpress import Plugin
+from pluginplot import Plugin
 
 @contextmanager
 def captured_output():
