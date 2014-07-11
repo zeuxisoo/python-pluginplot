@@ -34,3 +34,6 @@ class Plugin(object):
             raise ActionError("Not found action named: {0}".format(name))
         else:
             action(*args, **kwargs)
+
+    def register_plot(self, plot):
+        plot.register(self)
