@@ -7,7 +7,7 @@ import sys
 import unittest
 from contextlib import contextmanager
 from StringIO import StringIO
-from pluginplot import Plugin
+from pluginplot import Plugin, Plot
 
 @contextmanager
 def captured_output():
@@ -64,3 +64,25 @@ class TestPlugin(unittest.TestCase):
         with captured_output() as (out, err):
             self.plugin.do_action('puts', 'put method')
             self.assertEquals(out.getvalue().strip(), 'put method')
+
+    def test_register_plot(self):
+        plot = Plot()
+
+        @plot.filter('strong')
+        def strong(value):
+            return "<strong>{0}</strong>".format(value)
+
+        @plot.action('puts')
+        def puts(value):
+            print(value)
+
+        self.plugin.register_plot(plot)
+
+        with captured_output() as (out, err):
+            self.assertNotEquals(self.plugin.filters, {})
+            self.assertNotEquals(self.plugin.actions, {})
+
+            self.assertEquals(self.plugin.apply_filter('strong', 'strong method'), '<strong>strong method</strong>')
+
+            self.plugin.do_action('puts', 'puts method')
+            self.assertEquals(out.getvalue().strip(), 'puts method')
