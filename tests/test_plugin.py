@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 
+import os
 import sys
 import unittest
 from contextlib import contextmanager
@@ -86,3 +87,17 @@ class TestPlugin(unittest.TestCase):
 
             self.plugin.do_action('puts', 'puts method')
             self.assertEquals(out.getvalue().strip(), 'puts method')
+
+    def test_register_plots(self):
+        self.plugin.folder = os.path.join(os.path.dirname(__file__), 'plugins')
+        self.plugin.register_plots()
+
+        self.assertEquals(len(self.plugin.filters), 5)
+        self.assertEquals(len(self.plugin.actions), 0)
+
+        self.assertEquals(self.plugin.apply_filter('plugin_hello', 'test'), 'test | plugin_hello')
+        self.assertEquals(self.plugin.apply_filter('plugin_test1_hello1', 'test'), 'test | plugin_test1_hello1')
+
+    def test_register_module(self):
+        self.plugin.register_module("foo.bar")
+        self.assertTrue('foo.bar' in sys.modules)
