@@ -1,15 +1,14 @@
+# PluginPress
 
-### PluginPress
+(WIP) Yet another simple plugin system for Python like WordPress plugin system
 
-WIP
-
-### Usage
+## Usage
 
 Install from github
 
 	pip install git+https://github.com/zeuxisoo/python-pluginplot.git
 
-### Example
+## Hooks
 
 Filter
 
@@ -36,3 +35,10 @@ Action
 
 	# Output: Hello World
     plugin.do_action('puts', 'Hello World')
+    
+## Examples
+
+More examples cloud be found at the `examples` directory like
+
+- How to create plugin in single file or directory by `Plot`.
+- How to load all plugins at once.
