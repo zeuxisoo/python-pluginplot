@@ -8,11 +8,15 @@ Install from github
 
 	pip install git+https://github.com/zeuxisoo/python-pluginplot.git
 
+Install from PYPI
+
+	pip install pluginplot
+
 ## Hooks
 
 ### Filter
 
-Base
+Base style
 
     from pluginplot import Plugin
 
@@ -25,19 +29,19 @@ Base
 	# Output: <strong>This is test message</strong>
     print(plugin.apply_filter('strong', 'This is test message'))
 
-Plot
+Plot style
 
 	from pluginplot import Plot
-	
+
 	plot = Plot()
-	
+
 	@plot.filter('strong')
 	def strong(value):
         return "<strong>{0}</strong>".format(value)
 
 ### Action
 
-Base
+Base style
 
 	from pluginplot import Plugin
 
@@ -49,17 +53,17 @@ Base
 
 	# Output: Hello World
     plugin.do_action('puts', 'Hello World')
-    
-Plot
+
+Plot style
 
 	from pluginplot import Plot
-	
+
 	plot = Plot()
-	
+
 	@plot.action('puts')
 	def puts(value):
         print(value)
-    
+
 ## Examples
 
 More examples cloud be found at the `examples` directory like
