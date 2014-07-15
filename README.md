@@ -1,16 +1,16 @@
 # PluginPress
 
-(WIP) Yet another simple plugin system for Python like WordPress plugin system
+Yet another simple plugin system for Python like WordPress plugin system
 
 ## Usage
+
+Install from PYPI
+
+    pip install pluginplot
 
 Install from github
 
 	pip install git+https://github.com/zeuxisoo/python-pluginplot.git
-
-Install from PYPI
-
-	pip install pluginplot
 
 ## Hooks
 
