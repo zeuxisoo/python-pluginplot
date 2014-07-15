@@ -10,7 +10,9 @@ Install from github
 
 ## Hooks
 
-Filter
+### Filter
+
+Base
 
     from pluginplot import Plugin
 
@@ -23,7 +25,19 @@ Filter
 	# Output: <strong>This is test message</strong>
     print(plugin.apply_filter('strong', 'This is test message'))
 
-Action
+Plot
+
+	from pluginplot import Plot
+	
+	plot = Plot()
+	
+	@plot.filter('strong')
+	def strong(value):
+        return "<strong>{0}</strong>".format(value)
+
+### Action
+
+Base
 
 	from pluginplot import Plugin
 
@@ -35,6 +49,16 @@ Action
 
 	# Output: Hello World
     plugin.do_action('puts', 'Hello World')
+    
+Plot
+
+	from pluginplot import Plot
+	
+	plot = Plot()
+	
+	@plot.action('puts')
+	def puts(value):
+        print(value)
     
 ## Examples
 
