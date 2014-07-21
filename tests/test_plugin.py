@@ -88,16 +88,26 @@ class TestPlugin(unittest.TestCase):
             self.plugin.do_action('puts', 'puts method')
             self.assertEquals(out.getvalue().strip(), 'puts method')
 
+    def test_register_module(self):
+        self.plugin.register_module("foo.bar")
+        self.assertTrue('foo.bar' in sys.modules)
+
     def test_register_plots(self):
-        self.plugin.folder = os.path.join(os.path.dirname(__file__), 'plugins')
+        self.plugin.folder  = os.path.join(os.path.dirname(__file__), 'plugins')
+        self.plugin.package = "testcase.plugins"
         self.plugin.register_plots()
 
         self.assertEquals(len(self.plugin.filters), 5)
         self.assertEquals(len(self.plugin.actions), 0)
 
+        # _init_plugin_files
         self.assertEquals(self.plugin.apply_filter('plugin_hello', 'test'), 'test | plugin_hello')
         self.assertEquals(self.plugin.apply_filter('plugin_test1_hello1', 'test'), 'test | plugin_test1_hello1')
 
-    def test_register_module(self):
-        self.plugin.register_module("foo.bar")
-        self.assertTrue('foo.bar' in sys.modules)
+        # _init_with_statement
+        with self.plugin:
+            from testcase.plugins import test1
+            from testcase.plugins.test1 import hello1
+
+            self.assertEquals(test1.hello1.plugin_test1_hello1('test1'), 'test1 | plugin_test1_hello1')
+            self.assertEquals(hello1.plugin_test1_hello1('test2'), 'test2 | plugin_test1_hello1')
