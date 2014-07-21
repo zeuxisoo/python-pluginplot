@@ -12,19 +12,22 @@ class Plot(object):
         self.deferred_filters = []
         self.deferred_actions = []
 
-    def filter(self, name):
+    def filter(self, name=None):
         def wrapper(method):
             self.add_deferred_method(self.CATEGORY_FILTER, name, method)
             return method
         return wrapper
 
-    def action(self, name):
+    def action(self, name=None):
         def wrapper(method):
             self.add_deferred_method(self.CATEGORY_ACTION, name, method)
             return method
         return wrapper
 
     def add_deferred_method(self, category, name, method):
+        if name is None:
+            name = method.__name__
+
         if category == self.CATEGORY_FILTER:
             self.deferred_filters.append(lambda target: target.add_filter(name, method))
         elif category == self.CATEGORY_ACTION:

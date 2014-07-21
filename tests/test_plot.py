@@ -29,14 +29,24 @@ class TestPlot(unittest.TestCase):
         def strong(value):
             return "<strong>{0}</strong>".format(value)
 
+        @self.plot.filter()
+        def address(value):
+            return "<address>{0}</address>".format(value)
+
         self.assertNotEquals(self.plot.deferred_filters, [])
+        self.assertEquals(len(self.plot.deferred_filters), 2)
 
     def test_action(self):
         @self.plot.action('puts')
         def puts(value):
             print(value)
 
+        @self.plot.action()
+        def pp(value):
+            print("<p>{0}</p>".format(value))
+
         self.assertNotEquals(self.plot.deferred_actions, [])
+        self.assertEquals(len(self.plot.deferred_actions), 2)
 
     def test_add_deferred_method(self):
         self.plot.add_deferred_method(self.plot.CATEGORY_FILTER, 'address', lambda value: "<address>{0}</address>".format(value))
@@ -57,11 +67,21 @@ class TestPlot(unittest.TestCase):
         def puts(value):
             print(value)
 
+        @self.plot.filter()
+        def strong_without_name(value):
+            return "<strong>{0}</strong>".format(value)
+
+        @self.plot.action()
+        def puts_without_name(value):
+            print(value)
+
         plugin = Plugin()
         self.plot.register(plugin)
 
         self.assertNotEquals(plugin.filters.get('strong'), None)
+        self.assertNotEquals(plugin.filters.get('strong_without_name'), None)
         self.assertNotEquals(plugin.actions.get('puts'), None)
+        self.assertNotEquals(plugin.actions.get('puts_without_name'), None)
 
         with captured_output() as (out, err):
             self.assertEquals(plugin.apply_filter('strong', 'message'), '<strong>message</strong>')
