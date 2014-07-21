@@ -63,6 +63,24 @@ Plot style
 	@plot.action('puts')
 	def puts(value):
         print(value)
+        
+### Other
+
+With style
+
+	from pluginplot import Plugin
+	
+	plugin = Plugin(folder='tests/plugins', package='style.plugins')
+	plugin.register_plots()
+	
+	# [PLUGIN]: tests/plugins/[PLUGIN]
+	# [MODULE]: tests/plugins/[PLUGIN]/[MODULE].py
+	with plugin:
+	    from style.plugins import [PLUGIN]
+	    from style.plugins.[PLUGIN] import [MODULE]
+	
+	    print [PLUGIN].[MODULE].[METHOD]('Hello world 1)
+	    print [MODULE].[METHOD]('Hello world 2')
 
 ## Examples
 
